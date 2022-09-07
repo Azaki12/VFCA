@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 
+import '../../data/services/app_services.dart';
 import 'constants.dart';
 
 extension CustomBoxDecoration on Widget {
@@ -34,29 +35,33 @@ extension CustomBoxDecoration on Widget {
 }
 
 extension CustomInputDecoration on InputDecoration {
-  static InputDecoration decorate({
-    required String hintText,
-    IconData? prefixIcon,
-    IconData? suffixIcon,
-    VoidCallback? onSuffixTap,
-    double padding = 18,
-  }) {
+  static InputDecoration decorate(
+      {required String hintText,
+        String? prefixIcon,
+        String? suffixIcon,
+        String? suffixText,
+        Color? suffixColor,
+        VoidCallback? onSuffixTap,
+        bool? filled = true}) {
+    AppServices appServices = Get.find<AppServices>();
     return InputDecoration(
       hintText: hintText,
       hintStyle: Get.textTheme.caption!.copyWith(
         color: Get.theme.primaryColor.withOpacity(0.4),
         fontSize: 14,
       ),
-      filled: true,
-      fillColor: Colors.grey.shade100,
       prefixIcon: prefixIcon != null
-          ? Icon(prefixIcon, color: Get.theme.primaryColor)
+          ? prefixIcon.icon(color: Get.theme.primaryColor)
           : const SizedBox(),
       prefixIconConstraints: prefixIcon != null
           ? const BoxConstraints.expand(width: 55, height: 55)
           : const BoxConstraints.expand(width: 10, height: 10),
       floatingLabelBehavior: FloatingLabelBehavior.never,
-      contentPadding: EdgeInsets.all(padding),
+      contentPadding: const EdgeInsets.all(22),
+      fillColor: (appServices.isDark.value)
+          ? Constants.lightGrey
+          : Constants.lightBlue,
+      filled: filled,
       suffixIconColor: Get.theme.colorScheme.secondary,
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
@@ -67,14 +72,18 @@ extension CustomInputDecoration on InputDecoration {
       errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide:
-              BorderSide(color: Get.theme.colorScheme.secondary, width: 1)),
+          BorderSide(color: Get.theme.colorScheme.secondary, width: 1)),
+      suffixIconConstraints: (suffixIcon == null)
+          ? const BoxConstraints.expand(width: 60, height: 22)
+          : null,
       suffixIcon: (suffixIcon == null)
+          ? (suffixText == null)
           ? null
+          : suffixText.body(color: Constants.accentColor, center: true)
           : IconButton(
-              onPressed: onSuffixTap,
-              icon: Icon(suffixIcon),
-              color: Get.theme.colorScheme.secondary,
-            ),
+        onPressed: onSuffixTap,
+        icon: suffixIcon.icon(color: suffixColor),
+      ),
     );
   }
 }
@@ -109,8 +118,9 @@ extension CustomTextStyles on String {
         ),
       );
 
-  Text title({Color? color}) => Text(
+  Text title({Color? color, bool center = true}) => Text(
         this,
+        textAlign: center ? TextAlign.center : TextAlign.left,
         style: Get.textTheme.headline6!.merge(
           TextStyle(
             color: color ?? Get.theme.primaryColor,

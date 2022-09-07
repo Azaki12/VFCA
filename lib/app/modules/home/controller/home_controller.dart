@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vfca2/app/data/services/app_services.dart';
 import 'package:vfca2/app/modules/fuel_consumption/view/fuel_consumption_view.dart';
-import 'package:vfca2/app/modules/home/view/home_view.dart';
 import 'package:vfca2/app/modules/quote_view/view/quote_view.dart';
 import 'package:vfca2/app/modules/trip_conusmption_view/view/trip_consumption_view.dart';
 

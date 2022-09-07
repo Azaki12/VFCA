@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:vfca2/app/core/utils/extensions.dart';
-import 'package:vfca2/app/modules/home/controller/home_controller.dart';
-import 'package:vfca2/app/widgets/custom_wave_clipper.dart';
 
-import '../../../routes/app_pages.dart';
+import 'package:vfca2/app/modules/home/controller/home_controller.dart';
+
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -15,7 +11,9 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
+      backgroundColor: const Color(0xFFF6F6E9),
       appBar: AppBar(
+        backgroundColor: const Color(0xFFF6F6E9),
         title: Text(controller.titles[controller.cindex.value]),
         actions: [
           IconButton(

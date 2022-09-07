@@ -19,7 +19,7 @@ class MapScreen extends GetView<MapsController> {
           children: [
             GoogleMap(
               initialCameraPosition: controller.initialCameraPosition,
-              myLocationButtonEnabled: true,
+              myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
               onMapCreated: (mapController) =>
                   controller.googleMapController = mapController,
