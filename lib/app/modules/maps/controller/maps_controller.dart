@@ -43,11 +43,11 @@ class MapsController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    googleMapController!.dispose();
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+    // googleMapController!.dispose();
+    // super.onClose();
+  // }
 
   Future<LocationData?> getLocationData() async {
     bool serviceEnabled;
@@ -107,6 +107,7 @@ class MapsController extends GetxController {
         appServices.consumptions.addAll({
           appServices.index.value++: [info!.totalDistance, info!.totalDuration],
         });
+        appServices.runModelFuel();
         Get.back();
       });
       update();

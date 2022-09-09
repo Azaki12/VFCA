@@ -19,7 +19,8 @@ class DriverAnalysisView extends GetView<DriverAnalysisController> {
         title: 'Driver Behavior Analysis'.title(),
       ),
       body: GlobalBG(
-        body: Obx(() => Center(
+        body: Obx(() =>
+            Center(
               child: Column(
                 children: [
                   // Stack(
@@ -52,7 +53,7 @@ class DriverAnalysisView extends GetView<DriverAnalysisController> {
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          height: Get.height * 0.25,
+                          height: Get.height * 0.15,
                           width: Get.width * 0.8,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -78,9 +79,10 @@ class DriverAnalysisView extends GetView<DriverAnalysisController> {
                                     'assets/svg/analysis.svg',
                                   ),
                                 ),
-                                controller.modelReading.value.isEmpty
+                                controller.appServices.modelOut.value == 4
                                     ? 'Unknown'.title()
-                                    : controller.modelReading.value.title(),
+                                    : controller.categoryNames[controller
+                                    .appServices.modelOut.value],
                               ],
                             ),
                             Column(
@@ -93,12 +95,13 @@ class DriverAnalysisView extends GetView<DriverAnalysisController> {
                                 ),
                                 GetBuilder<MapsController>(
                                     builder: (mapsController) {
-                                  if (mapsController.info != null) {
-                                    return mapsController.info!.totalDistance
-                                        .title();
-                                  }
-                                  return '0.0KM'.title();
-                                })
+                                      if (mapsController.info != null) {
+                                        return mapsController.info!
+                                            .totalDistance
+                                            .title();
+                                      }
+                                      return '0.0KM'.title();
+                                    })
                               ],
                             ),
                             Column(
@@ -111,12 +114,13 @@ class DriverAnalysisView extends GetView<DriverAnalysisController> {
                                 ),
                                 GetBuilder<MapsController>(
                                     builder: (mapsController) {
-                                  if (mapsController.info != null) {
-                                    return mapsController.info!.totalDuration
-                                        .title();
-                                  }
-                                  return '0.0KM'.title();
-                                }),
+                                      if (mapsController.info != null) {
+                                        return mapsController.info!
+                                            .totalDuration
+                                            .title();
+                                      }
+                                      return '0.0KM'.title();
+                                    }),
                               ],
                             ),
                           ],
@@ -133,46 +137,9 @@ class DriverAnalysisView extends GetView<DriverAnalysisController> {
                   //       controller.index.value = r.nextInt(3);
                   //     },
                   //     child: const Text('dsad')),
-                  'Tips'.title(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularPercentIndicator(
-                        radius: 80,
-                        animation: true,
-                        progressColor:
-                            controller.categoryColors[controller.index.value],
-                        circularStrokeCap: CircularStrokeCap.round,
-                        backgroundColor: Colors.grey,
-                        lineWidth: 15,
-                        percent:
-                            controller.categoryPercent[controller.index.value],
-                        center:
-                            controller.categoryNames[controller.index.value],
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      CircularPercentIndicator(
-                        radius: 80,
-                        animation: true,
-                        progressColor:
-                            controller.categoryColors[controller.index.value],
-                        circularStrokeCap: CircularStrokeCap.round,
-                        backgroundColor: Colors.grey,
-                        lineWidth: 13,
-                        percent: 0.5,
-                        center: 'Following the Tips will save you 50%'.body(
-                          center: true,
-                          color: Colors.red,
-                          weight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
+                  controller.appServices.modelOut.value == 4 ? 'Unkown'
+                      .title(): controller.appServices.tips[controller
+                      .appServices.modelOut.value].title(),
                 ],
               ),
             )),

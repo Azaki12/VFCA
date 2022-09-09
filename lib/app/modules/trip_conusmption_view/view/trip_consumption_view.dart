@@ -19,17 +19,20 @@ class TripConsumptionView extends GetView<TripConsumptionController> {
             children: [
               Container(
                 width: Get.width * 0.8,
-                height: Get.height * 0.36,
+                height: Get.height * 0.25,
                 color: Colors.transparent,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Container(
-                      height: Get.height * 0.25,
-                      width: Get.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                    Positioned(
+                      bottom: 5,
+                      child: Container(
+                        height: Get.height * 0.15,
+                        width: Get.width * 0.8,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                     ),
                     const Positioned(
@@ -40,59 +43,66 @@ class TripConsumptionView extends GetView<TripConsumptionController> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // Column(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     const ImageIcon(
-                        //       Svg(
-                        //         'assets/svg/driver.svg',
-                        //       ),
-                        //     ),
-                        //     controller.modelReading.value.isEmpty
-                        //         ? 'Unknown'.title()
-                        //         : controller.modelReading.value.title(),
-                        //   ],
-                        // ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const ImageIcon(
-                              Svg(
-                                'assets/svg/distance.svg',
+                    Positioned(
+                      bottom: 15,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // Column(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     const ImageIcon(
+                          //       Svg(
+                          //         'assets/svg/driver.svg',
+                          //       ),
+                          //     ),
+                          //     controller.modelReading.value.isEmpty
+                          //         ? 'Unknown'.title()
+                          //         : controller.modelReading.value.title(),
+                          //   ],
+                          // ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const ImageIcon(
+                                Svg(
+                                  'assets/svg/distance.svg',
+                                ),
                               ),
-                            ),
-                            GetBuilder<MapsController>(
-                                builder: (mapsController) {
-                              if (mapsController.info != null) {
-                                return mapsController.info!.totalDistance
-                                    .title();
-                              }
-                              return '0.0KM'.title();
-                            })
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const ImageIcon(
-                              Svg(
-                                'assets/svg/time.svg',
+                              GetBuilder<MapsController>(
+                                  builder: (mapsController) {
+                                if (mapsController.info != null) {
+                                  return mapsController.info!.totalDistance
+                                      .title();
+                                }
+                                return '0.0KM'.title();
+                              })
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const ImageIcon(
+                                Svg(
+                                  'assets/svg/time.svg',
+                                ),
                               ),
-                            ),
-                            GetBuilder<MapsController>(
-                                builder: (mapsController) {
-                              if (mapsController.info != null) {
-                                return mapsController.info!.totalDuration
-                                    .title();
-                              }
-                              return '0.0KM'.title();
-                            })
-                          ],
-                        ),
-                      ],
+                              GetBuilder<MapsController>(
+                                  builder: (mapsController) {
+                                if (mapsController.info != null) {
+                                  return mapsController.info!.totalDuration
+                                      .title();
+                                }
+                                return '0.0min'.title();
+                              })
+                            ],
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -119,6 +129,9 @@ class TripConsumptionView extends GetView<TripConsumptionController> {
               //     ),
               //   ],
               // ),
+              const SizedBox(
+                height: 20,
+              ),
               CircularPercentIndicator(
                 radius: 80,
                 animation: true,
@@ -127,27 +140,19 @@ class TripConsumptionView extends GetView<TripConsumptionController> {
                 progressColor: const Color(0xFFFD5F00),
                 backgroundColor: Colors.grey,
                 lineWidth: 15,
-                percent: controller.percent.value,
-                center:
-                    '${(controller.percent.value * 100).truncate()}%'.title(),
+                percent: controller.appServices.totalFuel.value == 0
+                    ? 0.0
+                    : (controller.appServices.fuelConsumption.value /
+                        controller.appServices.totalFuel.value),
+                center: controller.appServices.totalFuel.value == 0
+                    ? '0.0%'.title()
+                    : '${((controller.appServices.fuelConsumption.value / controller.appServices.totalFuel.value) * 100).toStringAsFixed(3)}%'
+                        .title(),
                 // center: controller.appServices.info!.totalDistance.title(),
               ),
               const SizedBox(
                 height: 20,
               ),
-              if (controller.mapsController.info != null)
-                // todo change to predicted trip consumption while changing the progress indicator
-                GetBuilder<MapsController>(
-                    builder: (mapController) => Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            mapController.info!.totalDistance.title(),
-                            const SizedBox(
-                              width: 40,
-                            ),
-                            mapController.info!.totalDuration.title(),
-                          ],
-                        )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -156,7 +161,7 @@ class TripConsumptionView extends GetView<TripConsumptionController> {
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              const Color(0xFF13334C)),
+                              const Color(0xFF005792)),
                         ),
                         onPressed: () {
                           Get.toNamed(Routes.quoteManagementScreen);
@@ -179,7 +184,7 @@ class TripConsumptionView extends GetView<TripConsumptionController> {
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              const Color(0xFF13334C)),
+                              const Color(0xFF005792)),
                         ),
                         onPressed: () {
                           Get.toNamed(Routes.driverAnalysisScreen);

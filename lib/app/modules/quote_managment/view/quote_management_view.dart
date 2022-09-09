@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import 'package:vfca2/app/core/utils/extensions.dart';
 import 'package:vfca2/app/modules/quote_managment/controller/quote_management_controller.dart';
 import 'package:vfca2/app/widgets/global_bg.dart';
 
-import '../../../widgets/custom_wave_clipper.dart';
 import '../../maps/controller/maps_controller.dart';
 
 class QuoteManagementView extends GetView<QuoteManagementController> {
@@ -48,17 +46,20 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
             // ),
             Container(
               width: Get.width * 0.8,
-              height: Get.height * 0.36,
+              height: Get.height * 0.25,
               color: Colors.transparent,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(
-                    height: Get.height * 0.25,
-                    width: Get.width * 0.8,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: Get.height * 0.15,
+                      width: Get.width * 0.8,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
                   Positioned(
@@ -68,56 +69,61 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
                       width: Get.width * 0.7,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const ImageIcon(
-                            Svg(
-                              'assets/svg/fuel.svg',
+                  Positioned(
+                    bottom: 5,
+                    child: Row(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const ImageIcon(
+                              Svg(
+                                'assets/svg/fuel.svg',
+                              ),
                             ),
-                          ),
-                          controller.appServices.totalFuel.value == 0.0
-                              ? '0.0L'.title()
-                              : '${controller.appServices.totalFuel.value}L'
-                                  .title(),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const ImageIcon(
-                            Svg(
-                              'assets/svg/fuel-consumption.svg',
+                            controller.appServices.totalFuel.value == 0.0
+                                ? '0.0L'.title()
+                                : '${controller.appServices.totalFuel.value}L'
+                                    .title(),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const ImageIcon(
+                              Svg(
+                                'assets/svg/fuel-consumption.svg',
+                              ),
                             ),
-                          ),
-                          controller.appServices.currentFuel.value == 0.0
-                              ? '0.0L'.title()
-                              : '${controller.appServices.currentFuel.value}L'
-                                  .title(),
-                        ],
-                      ),
-                      // Column(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     const ImageIcon(
-                      //       Svg(
-                      //         'assets/svg/time.svg',
-                      //       ),
-                      //     ),
-                      //     GetBuilder<MapsController>(
-                      //         builder: (mapsController) {
-                      //           if (mapsController.info != null) {
-                      //             return mapsController.info!.totalDuration
-                      //                 .title();
-                      //           }
-                      //           return '0.0KM'.title();
-                      //         })
-                      //   ],
-                      // ),
-                    ],
+                            controller.appServices.totalFuel.value == 0.0
+                                ? '0.0L'.title()
+                                : '${(controller.appServices.currentFuel.value).toStringAsFixed(3)}L'
+                                    .title(),
+                          ],
+                        ),
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     const ImageIcon(
+                        //       Svg(
+                        //         'assets/svg/time.svg',
+                        //       ),
+                        //     ),
+                        //     GetBuilder<MapsController>(
+                        //         builder: (mapsController) {
+                        //           if (mapsController.info != null) {
+                        //             return mapsController.info!.totalDuration
+                        //                 .title();
+                        //           }
+                        //           return '0.0KM'.title();
+                        //         })
+                        //   ],
+                        // ),
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -138,14 +144,19 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
                   backgroundColor: Colors.grey,
                   lineWidth: 15,
                   reverse: true,
-                  percent: 1.0 - controller.percent!.value,
+                  percent: controller.appServices.totalFuel.value == 0
+                      ? 0
+                      : (controller.appServices.fuelConsumption.value /
+                          controller.appServices.totalFuel.value),
                   // center: '${((1 - controller.percent!.value) * 100).truncate()}%'.title(),
                   center: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       'Wasted'.title(),
-                      '${((1 - controller.percent!.value) * 100).truncate()}%'
-                          .title()
+                      controller.appServices.totalFuel.value == 0
+                          ? '0%'.title()
+                          : '${((controller.appServices.fuelConsumption.value / controller.appServices.totalFuel.value) * 100).toStringAsFixed(3)}%'
+                              .title()
                     ],
                   ),
                 ),
@@ -160,13 +171,19 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
                   progressColor: Colors.green,
                   backgroundColor: Colors.grey,
                   lineWidth: 15,
-                  percent: controller.percent!.value,
+                  percent: controller.appServices.totalFuel.value == 0
+                      ? 0
+                      : (controller.appServices.currentFuel.value /
+                      controller.appServices.totalFuel.value),
                   // center: '${(controller.percent!.value * 100).truncate()}%'.title(),
                   center: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       'Remaining'.title(),
-                      '${(controller.percent!.value * 100).truncate()}%'.title()
+                      controller.appServices.totalFuel.value == 0
+                          ? '0%'.title():
+                      '${((controller.appServices.currentFuel.value /
+                          controller.appServices.totalFuel.value) * 100).toStringAsFixed(3)}%'.title()
                     ],
                   ),
                 ),

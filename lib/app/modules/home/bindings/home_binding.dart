@@ -14,6 +14,6 @@ class HomeBinding extends Bindings {
     Get.lazyPut<FuelConsumptionController>(() => FuelConsumptionController());
     Get.lazyPut<TripConsumptionController>(() => TripConsumptionController());
     Get.lazyPut<QuoteController>(() => QuoteController());
-    Get.lazyPut<MapsController>(() => MapsController());
+    Get.put(MapsController());
   }
 }

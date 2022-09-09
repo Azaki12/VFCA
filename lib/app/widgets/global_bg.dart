@@ -14,32 +14,32 @@ class GlobalBG extends StatelessWidget {
           top: 0,
           left: -Get.width * 0.2,
           child: DecorationCircles(
-            width: Get.width * 0.6,
-            height: Get.width * 0.6,
+            width: Get.width * 0.4,
+            height: Get.width * 0.4,
           ),
         ),
         Positioned(
           top: -Get.height * 0.06,
           right: -Get.width * 0.1,
           child: DecorationCircles(
-            width: Get.width * 0.4,
-            height: Get.width * 0.4,
+            width: Get.width * 0.3,
+            height: Get.width * 0.3,
           ),
         ),
         Positioned(
           top: Get.height * 0.5,
           left: -Get.width * 0.2,
           child: DecorationCircles(
-            width: Get.width * 0.4,
-            height: Get.width * 0.4,
+            width: Get.width * 0.3,
+            height: Get.width * 0.3,
           ),
         ),
         Positioned(
           bottom: 10,
           right: -Get.width * 0.35,
           child: DecorationCircles(
-            width: Get.width * 0.6,
-            height: Get.width * 0.6,
+            width: Get.width * 0.5,
+            height: Get.width * 0.5,
           ),
         ),
         Material(

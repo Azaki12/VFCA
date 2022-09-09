@@ -14,7 +14,7 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => GlobalBG(
-      body: Center(
+          body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -26,7 +26,7 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                     alignment: Alignment.center,
                     children: [
                       Container(
-                        height: Get.height * 0.25,
+                        height: Get.height * 0.15,
                         width: Get.width * 0.8,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -46,17 +46,17 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:  [
+                            children: [
                               const ImageIcon(
                                 Svg(
                                   'assets/svg/average_fuel.svg',
                                 ),
                               ),
-                              controller.modelReading.value == 0.0
-                                  ? '0.0L/100 KM'.title()
-                                  : '${controller.modelReading.value}L/100 KM'
-                                  .title(),
+                              '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)}L'.title(),
                             ],
+                          ),
+                          const SizedBox(
+                            width: 20,
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -76,6 +76,9 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                               })
                             ],
                           ),
+                          const SizedBox(
+                            width: 20,
+                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -90,7 +93,7 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                                   return mapsController.info!.totalDuration
                                       .title();
                                 }
-                                return '0.0KM'.title();
+                                return '0.0min'.title();
                               })
                             ],
                           ),
@@ -137,6 +140,6 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
               ],
             ),
           ),
-    ));
+        ));
   }
 }

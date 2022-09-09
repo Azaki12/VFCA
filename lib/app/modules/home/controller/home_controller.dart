@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vfca2/app/data/services/app_services.dart';
 import 'package:vfca2/app/modules/fuel_consumption/view/fuel_consumption_view.dart';
+import 'package:vfca2/app/modules/quote_view/controller/quote_controller.dart';
 import 'package:vfca2/app/modules/quote_view/view/quote_view.dart';
 import 'package:vfca2/app/modules/trip_conusmption_view/view/trip_consumption_view.dart';
 
+import '../../../widgets/global_textfield.dart';
+
 class HomeController extends GetxController {
   final AppServices appServices = Get.find<AppServices>();
+
   RxInt cindex = 0.obs;
   List<Widget>? pages = [
     const QuoteView(),
@@ -19,4 +23,5 @@ class HomeController extends GetxController {
     Colors.black,
     Colors.black
   ];
+
 }
