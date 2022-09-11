@@ -8,7 +8,7 @@ import 'package:vfca2/app/routes/app_pages.dart';
 
 class MapsController extends GetxController {
   var initialCameraPosition =
-      const CameraPosition(target: LatLng(30.135513, 31.366180), zoom: 18);
+  const CameraPosition(target: LatLng(30.135513, 31.366180), zoom: 18);
   GoogleMapController? googleMapController;
   AppServices appServices = Get.find<AppServices>();
   Marker? origin;
@@ -28,7 +28,7 @@ class MapsController extends GetxController {
           markerId: const MarkerId('origin'),
           infoWindow: const InfoWindow(title: 'Origin'),
           icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
           position: LatLng(value.latitude!, value.longitude!),
         );
         // Reset destination
@@ -45,8 +45,8 @@ class MapsController extends GetxController {
 
   // @override
   // void onClose() {
-    // googleMapController!.dispose();
-    // super.onClose();
+  // googleMapController!.dispose();
+  // super.onClose();
   // }
 
   Future<LocationData?> getLocationData() async {
@@ -73,20 +73,10 @@ class MapsController extends GetxController {
 
   void addMarker(LatLng pos) async {
     if (origin == null || (origin != null && destination != null)) {
-      // Origin is not set OR Origin/Destination are both set
-      // Set origin
-      // origin = Marker(
-      //   markerId: const MarkerId('origin'),
-      //   infoWindow: const InfoWindow(title: 'Origin'),
-      //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-      //   position: pos,
-      // );
       // Reset destination
       destination = null;
-
       // Reset info
       info = null;
-
       update();
     } else {
       // Origin is already set
@@ -104,10 +94,20 @@ class MapsController extends GetxController {
       Future.delayed(const Duration(seconds: 2)).then((value) {
         // todo run phase 2 model
         // todo save cache to retrieve later
+        List time = [];
+        time = info!.totalDuration.split(' ');
+        print(double.parse(info!.totalDuration.numericOnly()));
+        print(time);
+        int totalTime = 0;
+        if (time.length == 4){
+          totalTime += int.parse(time[0]) * 60;
+          totalTime += int.parse(time[2]);
+        }
         appServices.consumptions.addAll({
           appServices.index.value++: [info!.totalDistance, info!.totalDuration],
         });
-        appServices.runModelFuel();
+        appServices.runModelFuel(totalTime);
+        Get.back();
         Get.back();
       });
       update();

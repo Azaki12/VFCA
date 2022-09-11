@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:vfca2/app/core/theme/theme.dart';
 import 'package:vfca2/app/core/utils/extensions.dart';
 import 'package:vfca2/app/modules/quote_view/controller/quote_controller.dart';
+import 'package:vfca2/app/routes/app_pages.dart';
 import 'package:vfca2/app/widgets/global_bg.dart';
 import 'package:vfca2/app/widgets/global_textfield.dart';
 
@@ -59,9 +61,9 @@ class QuoteView extends GetView<QuoteController> {
                                     ),
                                   ),
                                   controller.appServices.totalFuel.value == 0.0
-                                      ? '0.0 L'.title()
+                                      ? '0.0 L'.subtitle()
                                       : '${(controller.appServices.currentFuel.value).toStringAsFixed(3)} L'
-                                          .title(),
+                                          .subtitle(),
                                 ],
                               ),
                               const SizedBox(
@@ -79,9 +81,9 @@ class QuoteView extends GetView<QuoteController> {
                                       builder: (mapsController) {
                                     if (mapsController.info != null) {
                                       return mapsController.info!.totalDistance
-                                          .title();
+                                          .subtitle();
                                     }
-                                    return '0.0 KM'.title();
+                                    return '0.0 KM'.subtitle();
                                   })
                                 ],
                               ),
@@ -100,9 +102,9 @@ class QuoteView extends GetView<QuoteController> {
                                       builder: (mapsController) {
                                     if (mapsController.info != null) {
                                       return mapsController.info!.totalDuration
-                                          .title();
+                                          .subtitle();
                                     }
-                                    return '0.0 min'.title();
+                                    return '0.0 min'.subtitle();
                                   })
                                 ],
                               ),
@@ -204,7 +206,8 @@ class QuoteView extends GetView<QuoteController> {
                                         controller.appServices.rpm.value =
                                             double.parse(
                                                 controller.appServices.rpmController.text);
-                                        Get.back();
+                                        Get.toNamed(Routes.mapView);
+                                        UiTheme.successGetBar('Please Choose Destination');
                                       },
                                       child: const Text('Set Fuel')),
                                 ],
@@ -235,7 +238,7 @@ class QuoteView extends GetView<QuoteController> {
                       GestureDetector(
                         onTap: () async {
                           // run model fuel
-                          controller.appServices.runModelFuel();
+                          // controller.appServices.runModelFuel();
                         },
                         child: Container(
                           width: Get.width * 0.33,
@@ -261,7 +264,7 @@ class QuoteView extends GetView<QuoteController> {
                     height: 20,
                   ),
                   'Predicted Fuel Consumption: '.title(),
-                  '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)} L/H'
+                  '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)} L'
                       .title(),
                 ],
               ),

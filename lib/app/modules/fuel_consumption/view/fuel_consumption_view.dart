@@ -52,7 +52,7 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                                   'assets/svg/average_fuel.svg',
                                 ),
                               ),
-                              '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)}L'.title(),
+                              '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)}L'.subtitle(),
                             ],
                           ),
                           const SizedBox(
@@ -70,9 +70,9 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                                   builder: (mapsController) {
                                 if (mapsController.info != null) {
                                   return mapsController.info!.totalDistance
-                                      .title();
+                                      .subtitle();
                                 }
-                                return '0.0KM'.title();
+                                return '0.0KM'.subtitle();
                               })
                             ],
                           ),
@@ -91,9 +91,9 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                                   builder: (mapsController) {
                                 if (mapsController.info != null) {
                                   return mapsController.info!.totalDuration
-                                      .title();
+                                      .subtitle();
                                 }
-                                return '0.0min'.title();
+                                return '0.0min'.subtitle();
                               })
                             ],
                           ),

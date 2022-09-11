@@ -174,16 +174,16 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
                   percent: controller.appServices.totalFuel.value == 0
                       ? 0
                       : (controller.appServices.currentFuel.value /
-                      controller.appServices.totalFuel.value),
+                          controller.appServices.totalFuel.value),
                   // center: '${(controller.percent!.value * 100).truncate()}%'.title(),
                   center: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       'Remaining'.title(),
                       controller.appServices.totalFuel.value == 0
-                          ? '0%'.title():
-                      '${((controller.appServices.currentFuel.value /
-                          controller.appServices.totalFuel.value) * 100).toStringAsFixed(3)}%'.title()
+                          ? '0%'.title()
+                          : '${((controller.appServices.currentFuel.value / controller.appServices.totalFuel.value) * 100).toStringAsFixed(3)}%'
+                              .title()
                     ],
                   ),
                 ),
@@ -225,7 +225,7 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
             ),
             Expanded(
               child: Container(
-                width: Get.width * 0.95,
+                width: Get.width * 0.97,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(20),

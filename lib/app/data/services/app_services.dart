@@ -38,6 +38,7 @@ class AppServices extends GetxService {
   RxMap<int, List<String>> consumptions = <int, List<String>>{}.obs;
   TextEditingController fuelController = TextEditingController();
   TextEditingController rpmController = TextEditingController();
+
   // currentFuel is from the subtraction of the totalFuel and the consumed after the trip
   RxDouble currentFuel = 0.0.obs;
   RxDouble totalFuel = 0.0.obs;
@@ -54,7 +55,6 @@ class AppServices extends GetxService {
     '-  You have high speed distribution.\n- Your gas and brake pedal operations are not stable.',
     '-	You are maintaining a consistent speed.\n-	Your dynamic control of the vehicle is stable.',
   ];
-
 
   // List? totalMagnetic;
   // List? orientationAzmuth;
@@ -354,17 +354,17 @@ class AppServices extends GetxService {
     locationData = await location.getLocation();
     return locationData;
   }
+
   double speed = 0.0;
+
   Future<double> getSpeed() async {
     return getLocationData().then((value) {
       speed = value!.speed! * 3.6;
       return speed;
     });
-
   }
 
   RxInt modelOut = 4.obs;
-
 
   Future<void> runModel() async {
     await loadModelData();
@@ -375,8 +375,8 @@ class AppServices extends GetxService {
     // modelInput.add(speed);
     // modelInput.add(rpm.value);
     List afterEquation = [];
-    afterEquation =
-        await decodeTxtMagnetic('assets/pre_process/behaviour/behaviour.txt', modelInput);
+    afterEquation = await decodeTxtMagnetic(
+        'assets/pre_process/behaviour/behaviour.txt', modelInput);
 
     List<String> models = ['models/behaviour/behaviour.tflite'];
 
@@ -390,8 +390,8 @@ class AppServices extends GetxService {
 
     interpreters[0].run(afterEquation, output);
     double max = 0;
-    for(int i = 0; i < 3; i++){
-      if (output[0][i] > max){
+    for (int i = 0; i < 3; i++) {
+      if (output[0][i] > max) {
         modelOut.value = i;
         max = output[0][i];
       }
@@ -404,9 +404,9 @@ class AppServices extends GetxService {
     print('model out: $output');
   }
 
-
   RxDouble fuelConsumption = 0.0.obs;
-  Future<void> runModelFuel() async {
+
+  Future<void> runModelFuel(int time) async {
     List input = [];
     // await getSpeed().then((value) {
     //
@@ -416,7 +416,7 @@ class AppServices extends GetxService {
     input.add(rpm.value);
     List afterEquation = [];
     afterEquation =
-    await decodeTxtMagnetic('assets/pre_process/fuel/fuel.txt', input);
+        await decodeTxtMagnetic('assets/pre_process/fuel/fuel.txt', input);
 
     List<String> models = ['models/fuel/fuel.tflite'];
 
@@ -431,15 +431,15 @@ class AppServices extends GetxService {
     interpreters[0].run(afterEquation, output);
 
     fuelConsumption.value = output[0][0];
+    fuelConsumption.value = (fuelConsumption.value * time) / (60);
     if (currentFuel.value == 0) {
       currentFuel.value = (totalFuel.value - fuelConsumption.value);
-    }else{
+    } else {
       currentFuel.value -= fuelConsumption.value;
     }
     print(currentFuel.value);
     print('model out: $output');
   }
-
 
   Map model = {};
   List afterEquationMagnetic = [];
