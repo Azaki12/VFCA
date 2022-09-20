@@ -62,7 +62,7 @@ gasoline and diesel contributes to global climate change. Increasing energy sust
 is a non-renewable resource, and we cannot sustain our current rate of use indefinitely. Using it
 wisely now allows us time to find alternative technologies and fuels that will be more sustainable.
 Our approach can reduce petrol dependence costs as the volume of crude petrol produced will
-eventually begin to drop. 
+eventually begin to drop.
 
 ## Important Notes:
 
@@ -77,3 +77,9 @@ Noor El-Deen Magdy |  Machine Learning Engineer
 Abdulrahman Adel Ibrahim |  Machine Learning Engineer
 Bassant Magdy |  Machine Learning Engineer
 Ahmed Mohamed Zaki |  Mobile Developer
+
+## External Support
+
+We must highlight the help and supervision of Dr. Amr Elsayed (our project supervisor) and the WRL -
+Wireless Research Lab, IPDSC - Innovation Center, and Pixels Egypt Org. as they were our supporting
+entities all along.
