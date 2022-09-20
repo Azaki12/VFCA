@@ -21,7 +21,37 @@ conservation of money and the used fuel across daily vehicle trips.
 
 ## Application ScreenShots:
 
-### Quote View
+### Quote View:
 
-![Quote View](assets/images/s1.png)
+![Quote View before model inference](assets/images/s1.jpg)
 
+![Quote View after model inference](assets/images/s3.jpg)
+
+
+### Map (Direction and Time) View:
+
+![Direction and Time](assets/images/s2.jpg)
+
+
+### Fuel Consumption View:
+
+![Fuel Consumption](assets/images/s4.jpg)
+
+
+### Trip Consumption View:
+
+![Trip Consumption](assets/images/s5.jpg)
+
+### Quote Management View:
+
+![Quote View before model inference](assets/images/s6.jpg)
+
+
+### Driver Behaviour Analysis:
+
+![Driver Behaviour Analysis aggressive class](assets/images/s7.jpg)
+
+
+### Driver Behaviour Analysis:
+
+![Driver Behaviour Analysis normal class](assets/images/s8.jpg)
