@@ -27,17 +27,13 @@ Quote View before model inference            |  Quote View after model inference
 :-------------------------:|:-------------------------:
 ![Quote View before model inference](assets/images/s1.jpg)  |  ![Quote View after model inference](assets/images/s3.jpg)
 
-
-
 ### Map (Direction and Time) View:
 
 ![Direction and Time](assets/images/s2.jpg)
 
-
 ### Fuel Consumption View:
 
 ![Fuel Consumption](assets/images/s4.jpg)
-
 
 ### Trip Consumption View:
 
@@ -47,9 +43,28 @@ Quote View before model inference            |  Quote View after model inference
 
 ![Quote View before model inference](assets/images/s6.jpg)
 
-
 ### Driver Behaviour Analysis:
 
 Driver Behaviour Analysis aggressive class            |  Driver Behaviour Analysis normal class
 :-------------------------:|:-------------------------:
 ![Driver Behaviour Analysis aggressive class](assets/images/s7.jpg)  |  ![Driver Behaviour Analysis normal class](assets/images/s8.jpg)
+
+## Expected Project Outcomes
+
+The main outcome of this project is the local development of an efficient and flexible tool that can
+be used to monitor and rationalize fuel consumption in vehicles. The following shows the specific
+impacts that will be achieved as a result of the successful implementation of this project.
+
+Building a solution that can save the consumer money which can reach up to as much as $1,000 (or
+more) in fuel costs each year. Creating an environment-aware product that reduces environmental
+impact by designing a fuel-efficient approach to eliminate Carbon dioxide (CO2) from burning
+gasoline and diesel contributes to global climate change. Increasing energy sustainability as petrol
+is a non-renewable resource, and we cannot sustain our current rate of use indefinitely. Using it
+wisely now allows us time to find alternative technologies and fuels that will be more sustainable.
+Our approach can reduce petrol dependence costs as the volume of crude petrol produced will
+eventually begin to drop. 
+
+## Important Notes:
+
+- This project uses the Directions API, Maps SDK for android and IOS.
+- inOrder for the Directions API to work a billing account on a GoogleAPI console is a must.
