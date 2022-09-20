@@ -68,3 +68,13 @@ eventually begin to drop.
 
 - This project uses the Directions API, Maps SDK for android and IOS.
 - inOrder for the Directions API to work a billing account on a GoogleAPI console is a must.
+
+## Team Members and Contribution
+
+Name            |  Contribution
+:-------------------------:|:-------------------------:
+Noor El-Deen Magdy |  Machine Learning Engineer
+Abdulrahman Adel Ibrahim |  Machine Learning Engineer
+Bassant Magdy |  Machine Learning Engineer
+Mohamed Mahmoud Abdel Aziz |  Machine Learning Engineer
+Ahmed Mohamed Zaki |  Mobile Developer
