@@ -76,5 +76,4 @@ Name            |  Contribution
 Noor El-Deen Magdy |  Machine Learning Engineer
 Abdulrahman Adel Ibrahim |  Machine Learning Engineer
 Bassant Magdy |  Machine Learning Engineer
-Mohamed Mahmoud Abdel Aziz |  Machine Learning Engineer
 Ahmed Mohamed Zaki |  Mobile Developer
