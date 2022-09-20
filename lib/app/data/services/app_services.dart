@@ -38,6 +38,7 @@ class AppServices extends GetxService {
   RxMap<int, List<String>> consumptions = <int, List<String>>{}.obs;
   TextEditingController fuelController = TextEditingController();
   TextEditingController rpmController = TextEditingController();
+  RxInt totalTime = 0.obs;
 
   // currentFuel is from the subtraction of the totalFuel and the consumed after the trip
   RxDouble currentFuel = 0.0.obs;
@@ -405,13 +406,12 @@ class AppServices extends GetxService {
   }
 
   RxDouble fuelConsumption = 0.0.obs;
+  RxDouble fuelModelConsumption = 0.0.obs;
 
   Future<void> runModelFuel(int time) async {
     List input = [];
-    // await getSpeed().then((value) {
-    //
-    // });
     var s = await getSpeed();
+    print(s);
     input.add(s);
     input.add(rpm.value);
     List afterEquation = [];
@@ -431,13 +431,40 @@ class AppServices extends GetxService {
     interpreters[0].run(afterEquation, output);
 
     fuelConsumption.value = output[0][0];
+    fuelModelConsumption.value = output[0][0];
+
     fuelConsumption.value = (fuelConsumption.value * time) / (60);
     if (currentFuel.value == 0) {
       currentFuel.value = (totalFuel.value - fuelConsumption.value);
     } else {
       currentFuel.value -= fuelConsumption.value;
     }
-    print(currentFuel.value);
+    print('model out: $output');
+  }
+
+  Future<void> runModelTestFuel() async {
+    List input = [];
+    var s = await getSpeed();
+    print(s);
+    input.add(s);
+    input.add(rpm.value);
+    List afterEquation = [];
+    afterEquation =
+    await decodeTxtMagnetic('assets/pre_process/fuel/fuel.txt', input);
+
+    List<String> models = ['models/fuel/fuel.tflite'];
+
+    List<Interpreter> interpreters = [
+      for (int i = 0; i < models.length; i++)
+        await Interpreter.fromAsset(models[i]),
+    ];
+
+    // var output = List.filled(3, 0).reshape([1, 3]);
+    var output = List.filled(1, 0).reshape([1, 1]);
+
+    interpreters[0].run(afterEquation, output);
+
+    fuelModelConsumption.value = output[0][0];
     print('model out: $output');
   }
 
@@ -448,14 +475,12 @@ class AppServices extends GetxService {
     model = {};
     String file = await rootBundle.loadString(path);
     model = jsonDecode(file);
-    print(data);
     afterEquationMagnetic = [];
     for (int i = 0; i < data.length; i++) {
       double afterEq =
           (data[i] - model['mean'][i]) / (model['StandardDeviation'][i]);
       afterEquationMagnetic.add(afterEq);
     }
-    print(afterEquationMagnetic);
     return afterEquationMagnetic;
   }
 }

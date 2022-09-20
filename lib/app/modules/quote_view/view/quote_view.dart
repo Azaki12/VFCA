@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vfca2/app/core/theme/theme.dart';
 import 'package:vfca2/app/core/utils/extensions.dart';
 import 'package:vfca2/app/modules/quote_view/controller/quote_controller.dart';
@@ -138,7 +141,7 @@ class QuoteView extends GetView<QuoteController> {
                         controller.appServices.totalFuel.value == 0.0
                             ? 'Current Fuel: 0.0 L'.subtitle()
                             : 'Current Fuel: ${(controller.appServices.currentFuel.value).toStringAsFixed(2)} L'
-                            .subtitle(),
+                                .subtitle(),
                       ],
                     ),
                   ),
@@ -168,7 +171,8 @@ class QuoteView extends GetView<QuoteController> {
                                     prefixIcon: 'fuel',
                                     inputType: TextInputType.number,
                                     textInputAction: TextInputAction.next,
-                                    controller: controller.appServices.fuelController,
+                                    controller:
+                                        controller.appServices.fuelController,
                                     validator: (String? val) {
                                       if (val!.isEmpty) {
                                         return 'Please enter your Fuel'.tr;
@@ -187,7 +191,8 @@ class QuoteView extends GetView<QuoteController> {
                                     prefixIcon: 'tachometer',
                                     inputType: TextInputType.number,
                                     textInputAction: TextInputAction.done,
-                                    controller: controller.appServices.rpmController,
+                                    controller:
+                                        controller.appServices.rpmController,
                                     validator: (String? val) {
                                       if (val!.isEmpty) {
                                         return 'Please enter your RPM'.tr;
@@ -201,13 +206,16 @@ class QuoteView extends GetView<QuoteController> {
                                   ElevatedButton(
                                       onPressed: () {
                                         controller.appServices.totalFuel.value =
-                                            double.parse(
-                                                controller.appServices.fuelController.text);
+                                            double.parse(controller.appServices
+                                                .fuelController.text);
                                         controller.appServices.rpm.value =
-                                            double.parse(
-                                                controller.appServices.rpmController.text);
-                                        Get.toNamed(Routes.mapView);
-                                        UiTheme.successGetBar('Please Choose Destination');
+                                            double.parse(controller.appServices
+                                                .rpmController.text);
+                                        if (controller.appServices.totalTime.value == 0) {
+                                          Get.toNamed(Routes.mapView);
+                                          UiTheme.successGetBar(
+                                              'Please Choose Destination');
+                                        }
                                       },
                                       child: const Text('Set Fuel')),
                                 ],
@@ -239,6 +247,12 @@ class QuoteView extends GetView<QuoteController> {
                         onTap: () async {
                           // run model fuel
                           // controller.appServices.runModelFuel();
+                          if (controller.appServices.totalFuel.value == 0 ||
+                              controller.appServices.totalTime.value == 0) {
+                            UiTheme.errorGetBar('Set the fuel first');
+                          } else {
+                            controller.appServices.runModelTestFuel();
+                          }
                         },
                         child: Container(
                           width: Get.width * 0.33,
@@ -264,7 +278,7 @@ class QuoteView extends GetView<QuoteController> {
                     height: 20,
                   ),
                   'Predicted Fuel Consumption: '.title(),
-                  '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)} L'
+                  '${(controller.appServices.fuelModelConsumption.value).toStringAsFixed(3)} L/H'
                       .title(),
                 ],
               ),

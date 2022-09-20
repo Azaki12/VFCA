@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
+import 'package:vfca2/app/core/theme/theme.dart';
 import 'package:vfca2/app/core/utils/extensions.dart';
 import 'package:vfca2/app/routes/app_pages.dart';
 import 'package:vfca2/app/widgets/global_bg.dart';
@@ -52,7 +53,8 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                                   'assets/svg/average_fuel.svg',
                                 ),
                               ),
-                              '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)}L'.subtitle(),
+                              '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)}L'
+                                  .subtitle(),
                             ],
                           ),
                           const SizedBox(
@@ -117,11 +119,17 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                     .title(
                   center: true,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 GestureDetector(
-                  onTap: () => Get.toNamed(Routes.mapView),
+                  onTap: () {
+                    if (controller.appServices.totalFuel.value == 0) {
+                      UiTheme.errorGetBar('Please set the Fuel First');
+                    } else {
+                      Get.toNamed(Routes.mapView);
+                    }
+                  },
                   child: Container(
                     width: Get.width * 0.16,
                     height: Get.height * 0.08,

@@ -8,7 +8,7 @@ import 'package:vfca2/app/routes/app_pages.dart';
 
 class MapsController extends GetxController {
   var initialCameraPosition =
-  const CameraPosition(target: LatLng(30.135513, 31.366180), zoom: 18);
+      const CameraPosition(target: LatLng(30.135513, 31.366180), zoom: 18);
   GoogleMapController? googleMapController;
   AppServices appServices = Get.find<AppServices>();
   Marker? origin;
@@ -28,7 +28,7 @@ class MapsController extends GetxController {
           markerId: const MarkerId('origin'),
           infoWindow: const InfoWindow(title: 'Origin'),
           icon:
-          BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
           position: LatLng(value.latitude!, value.longitude!),
         );
         // Reset destination
@@ -91,22 +91,24 @@ class MapsController extends GetxController {
       final directions = await DirectionsRepository()
           .getDirections(origin: origin!.position, destination: pos);
       info = directions;
-      Future.delayed(const Duration(seconds: 2)).then((value) {
+      Future.delayed(const Duration(seconds: 2)).then((value) async {
         // todo run phase 2 model
         // todo save cache to retrieve later
         List time = [];
+        appServices.totalTime.value = 0;
         time = info!.totalDuration.split(' ');
-        print(double.parse(info!.totalDuration.numericOnly()));
-        print(time);
-        int totalTime = 0;
-        if (time.length == 4){
-          totalTime += int.parse(time[0]) * 60;
-          totalTime += int.parse(time[2]);
+
+        if (time.length == 4) {
+          appServices.totalTime.value += int.parse(time[0]) * 60;
+          appServices.totalTime.value += int.parse(time[2]);
+        } else {
+          appServices.totalTime.value += int.parse(time[0]);
         }
+
+        await appServices.runModelFuel(appServices.totalTime.value);
         appServices.consumptions.addAll({
-          appServices.index.value++: [info!.totalDistance, info!.totalDuration],
+          appServices.index.value++: [info!.totalDistance, info!.totalDuration, appServices.fuelConsumption.value.toStringAsFixed(3)],
         });
-        appServices.runModelFuel(totalTime);
         Get.back();
         Get.back();
       });

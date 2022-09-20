@@ -245,22 +245,28 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    'Trip ${index + 1}'.title(),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    mapsController
-                                        .appServices.consumptions[index]![0]
-                                        .title(),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    mapsController
-                                        .appServices.consumptions[index]![1]
-                                        .title(),
-                                  ]),
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  'Trip ${index + 1}'.title(),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  mapsController
+                                      .appServices.consumptions[index]![0]
+                                      .title(),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  mapsController
+                                      .appServices.consumptions[index]![1]
+                                      .title(),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  '${mapsController.appServices.consumptions[index]![2]}L'
+                                      .title(),
+                                ],
+                              ),
                             ),
                           ),
                         );
