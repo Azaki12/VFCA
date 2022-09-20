@@ -53,7 +53,7 @@ class FuelConsumptionView extends GetView<FuelConsumptionController> {
                                   'assets/svg/average_fuel.svg',
                                 ),
                               ),
-                              '${(controller.appServices.fuelConsumption.value).toStringAsFixed(3)}L'
+                              '${(controller.appServices.totalFuel.value - controller.appServices.currentFuel.value).toStringAsFixed(3)}L'
                                   .subtitle(),
                             ],
                           ),

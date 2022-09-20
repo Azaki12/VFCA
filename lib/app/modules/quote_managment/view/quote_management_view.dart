@@ -146,7 +146,7 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
                   reverse: true,
                   percent: controller.appServices.totalFuel.value == 0
                       ? 0
-                      : (controller.appServices.fuelConsumption.value /
+                      : ((controller.appServices.totalFuel.value - controller.appServices.currentFuel.value) /
                           controller.appServices.totalFuel.value),
                   // center: '${((1 - controller.percent!.value) * 100).truncate()}%'.title(),
                   center: Column(
@@ -155,7 +155,7 @@ class QuoteManagementView extends GetView<QuoteManagementController> {
                       'Wasted'.title(),
                       controller.appServices.totalFuel.value == 0
                           ? '0%'.title()
-                          : '${((controller.appServices.fuelConsumption.value / controller.appServices.totalFuel.value) * 100).toStringAsFixed(3)}%'
+                          : '${(((controller.appServices.totalFuel.value - controller.appServices.currentFuel.value) / controller.appServices.totalFuel.value) * 100).toStringAsFixed(3)}%'
                               .title()
                     ],
                   ),

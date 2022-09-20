@@ -9,6 +9,7 @@ import 'package:location/location.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors;
 import 'package:motion_sensors/motion_sensors.dart';
+import 'package:vfca2/app/core/theme/theme.dart';
 
 class AppServices extends GetxService {
   @override
@@ -408,7 +409,22 @@ class AppServices extends GetxService {
   RxDouble fuelConsumption = 0.0.obs;
   RxDouble fuelModelConsumption = 0.0.obs;
 
+  void init() {
+    totalFuel.value = 0;
+    currentFuel.value = 0;
+    rpm.value = 0;
+    fuelConsumption.value = 0;
+    fuelModelConsumption.value = 0;
+    magneticVarsInit();
+    totalTime.value = 0;
+    // rpmController.clear();
+    // fuelController.clear();
+  }
+
+  RxBool neg = false.obs;
+
   Future<void> runModelFuel(int time) async {
+    neg.value = false;
     List input = [];
     var s = await getSpeed();
     print(s);
@@ -439,6 +455,10 @@ class AppServices extends GetxService {
     } else {
       currentFuel.value -= fuelConsumption.value;
     }
+    if (currentFuel.isNegative) {
+      neg.value = true;
+      currentFuel.value += fuelConsumption.value;
+    }
     print('model out: $output');
   }
 
@@ -450,7 +470,7 @@ class AppServices extends GetxService {
     input.add(rpm.value);
     List afterEquation = [];
     afterEquation =
-    await decodeTxtMagnetic('assets/pre_process/fuel/fuel.txt', input);
+        await decodeTxtMagnetic('assets/pre_process/fuel/fuel.txt', input);
 
     List<String> models = ['models/fuel/fuel.tflite'];
 

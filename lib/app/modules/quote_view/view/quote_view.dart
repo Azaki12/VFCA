@@ -205,13 +205,21 @@ class QuoteView extends GetView<QuoteController> {
                                   ),
                                   ElevatedButton(
                                       onPressed: () {
+                                        if (controller
+                                                .appServices.totalFuel.value !=
+                                            0) {
+                                          controller.appServices.init();
+                                        }
                                         controller.appServices.totalFuel.value =
                                             double.parse(controller.appServices
                                                 .fuelController.text);
                                         controller.appServices.rpm.value =
                                             double.parse(controller.appServices
                                                 .rpmController.text);
-                                        if (controller.appServices.totalTime.value == 0) {
+
+                                        if (controller
+                                                .appServices.totalTime.value ==
+                                            0) {
                                           Get.toNamed(Routes.mapView);
                                           UiTheme.successGetBar(
                                               'Please Choose Destination');

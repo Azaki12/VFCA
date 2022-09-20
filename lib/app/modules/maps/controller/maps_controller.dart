@@ -6,6 +6,8 @@ import 'package:vfca2/app/data/services/app_services.dart';
 import 'package:vfca2/app/data/services/direction_repository.dart';
 import 'package:vfca2/app/routes/app_pages.dart';
 
+import '../../../core/theme/theme.dart';
+
 class MapsController extends GetxController {
   var initialCameraPosition =
       const CameraPosition(target: LatLng(30.135513, 31.366180), zoom: 18);
@@ -92,7 +94,6 @@ class MapsController extends GetxController {
           .getDirections(origin: origin!.position, destination: pos);
       info = directions;
       Future.delayed(const Duration(seconds: 2)).then((value) async {
-        // todo run phase 2 model
         // todo save cache to retrieve later
         List time = [];
         appServices.totalTime.value = 0;
@@ -106,11 +107,23 @@ class MapsController extends GetxController {
         }
 
         await appServices.runModelFuel(appServices.totalTime.value);
-        appServices.consumptions.addAll({
-          appServices.index.value++: [info!.totalDistance, info!.totalDuration, appServices.fuelConsumption.value.toStringAsFixed(3)],
+
+        if (!appServices.neg.value) {
+          appServices.consumptions.addAll({
+          appServices.index.value++: [
+            info!.totalDistance,
+            info!.totalDuration,
+            appServices.fuelConsumption.value.toStringAsFixed(3)
+          ],
         });
-        Get.back();
-        Get.back();
+          Get.back();
+          Get.back();
+        }else{
+          Get.back();
+          Get.back();
+          UiTheme.errorGetBar('Your Current fuel wont last this trip you need to re fuel, cancelling the trip');
+        }
+
       });
       update();
     }
