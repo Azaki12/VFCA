@@ -23,5 +23,5 @@ conservation of money and the used fuel across daily vehicle trips.
 
 ### Quote View
 
-![Quote View](../vfca2/assets/images/s1.png)
+![Quote View](assets/images/s1.png)
 
