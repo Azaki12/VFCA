@@ -23,9 +23,10 @@ conservation of money and the used fuel across daily vehicle trips.
 
 ### Quote View:
 
-![Quote View before model inference](assets/images/s1.jpg)
+Quote View before model inference            |  Quote View after model inference
+:-------------------------:|:-------------------------:
+![Quote View before model inference](assets/images/s1.jpg){:height="36px" width="36px"}  |  ![Quote View after model inference](assets/images/s3.jpg)
 
-![Quote View after model inference](assets/images/s3.jpg)
 
 
 ### Map (Direction and Time) View:
