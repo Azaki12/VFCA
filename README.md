@@ -1,16 +1,27 @@
-# vfca2
+# VFCA - Vehicles Fuel Consumption Analysis
 
-A new Flutter project.
+In order to control and analyze fuel consumption the VFCA works using three phases of operations as
+shown in Fig 1. Phase 1 uses an AI model to predict your vehicle’s overall fuel consumption
+according to the chosen features and metrics of the model. The prediction helps in phase 2 to
+calculate the different vehicle trips exact fuel consumption and overall time and at the same time,
+it considers choosing the shorter routes with fewer jams. Then to reduce the calculated fuel
+consumption in phase 3, the driver’s behavior is analyzed using an AI model to predict if he is a
+high, medium or low fuel consumer then gives the driver the tips to switch to the most efficient low
+fuel consumption category. Then it provides effective solutions for the user of fuel recommendation
+system and fuel quote management which proposes a way for tracking usage effectively and
+conservation of money and the used fuel across daily vehicle trips.
 
-## Getting Started
+## Application Features
 
-This project is a starting point for a Flutter application.
+- Fuel consumption detection with machine learning.
+- Directions and time detection of trips.
+- Fuel reduction recommendations using machine learning.
+- Fuel quote management views.
+- Single Trip consumption.
 
-A few resources to get you started if this is your first Flutter project:
+## Application ScreenShots:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Quote View
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Quote View](../vfca2/assets/images/s1.png)
+
