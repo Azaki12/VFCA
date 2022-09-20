@@ -50,9 +50,6 @@ Quote View before model inference            |  Quote View after model inference
 
 ### Driver Behaviour Analysis:
 
-![Driver Behaviour Analysis aggressive class](assets/images/s7.jpg)
-
-
-### Driver Behaviour Analysis:
-
-![Driver Behaviour Analysis normal class](assets/images/s8.jpg)
+Driver Behaviour Analysis aggressive class            |  Driver Behaviour Analysis normal class
+:-------------------------:|:-------------------------:
+![Driver Behaviour Analysis aggressive class](assets/images/s7.jpg)  |  ![Driver Behaviour Analysis normal class](assets/images/s8.jpg)
