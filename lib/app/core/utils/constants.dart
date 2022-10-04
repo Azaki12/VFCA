@@ -5,7 +5,6 @@ class Constants {
   static const String iconsPath = "assets/svg/";
   static const String illustrationsPath = "assets/svgs/illustrations/";
   static const String baseUrl = 'http://fehu.cardi-hu.com/';
-  static const String googleAPIKey = 'AIzaSyChmaE_h-bA5oGTJ8P26e3StICjSoGoJxw';
   static const String appName = 'VFCA';
 
   static const Color accentColor = Color(0xFFfba611);
