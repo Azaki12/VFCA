@@ -68,6 +68,7 @@ eventually begin to drop.
 
 - This project uses the Directions API, Maps SDK for android and IOS.
 - inOrder for the Directions API to work a billing account on a GoogleAPI console is a must.
+- Modify the "YOUR API Key Here" in the constants.dart & AndroidManifest.xml with your API key for the app to work as intended
 
 ## Team Members and Contribution
 
